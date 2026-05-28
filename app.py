@@ -379,7 +379,16 @@ if question:
         st.sidebar.error(
             f"🚨 Highest risk candidate: {risky_candidate}"
         )
+# =========================
+# DOWNLOAD DATA BUTTON
+# =========================
 
+csv = filtered_df.to_csv(index=False)
+
+st.download_button(
+    label="📥 Download The Data",
+    data=csv,
+   
     # =========================
     # DEFAULT RESPONSE
     # =========================
