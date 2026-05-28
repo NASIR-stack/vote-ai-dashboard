@@ -652,21 +652,22 @@ st.dataframe(
     use_container_width=True,
     height=400
 )
+st.markdown("""
+<style>
+
+.section-title {
+    color: white;
+}
+
 /* DOWNLOAD BUTTON */
 .stDownloadButton > button {
     background-color: white !important;
     color: black !important;
     font-weight: bold !important;
-    border-radius: 10px;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
 }
 
-.stDownloadButton > button:hover {
-    background-color: #00F5FF !important;
-    color: black !important;
-    transition: 0.3s;
+</style>
+""", unsafe_allow_html=True)
 }
 )
 # =========================
