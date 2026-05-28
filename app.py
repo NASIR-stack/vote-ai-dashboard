@@ -8,7 +8,7 @@ import seaborn as sns
 # PAGE CONFIG
 # =========================
 st.set_page_config(
-    page_title="<CYBERPUNK AI",
+    page_title="CYBERPUNK AI",
     page_icon="⚡️",
     layout="wide"
 )
