@@ -359,20 +359,7 @@ if question:
         st.sidebar.success(
             f"🏛️ {top_party} has most votes ({votes:,})"
         )
-st.subheader("🎯 Top 5 Most Suspicious Candidates")
 
-suspicious = filtered_df.nlargest(
-    5,
-    "Fraud_Risk_Score"
-)[["Candidate_Name",
-   "Party",
-   "State",
-   "Fraud_Risk_Score"]]
-
-st.dataframe(
-    suspicious,
-    use_container_width=True
-)
     # =========================
     # HIGH RISK CANDIDATE
     # =========================
