@@ -120,14 +120,14 @@ The dashboard is deployed using Streamlit Community Cloud.
 Deployment Link:
 
 ```text
-Paste Your Streamlit URL Here
+(https://vote-ai-dashboard-avfqs3lcwxa9xqplqkavtv.streamlit.app/)
 ```
 
 ---
 
 ## 📷 Screenshots
 
-Add screenshots of:
+I added Screenshots of and attached in a file
 
 - Dashboard Home
 - Party Analysis
