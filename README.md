@@ -90,7 +90,7 @@ Vote-AI-Dashboard/
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/vote-ai-dashboard.git
+https://github.com/NASIR-stack/vote-ai-dashboard
 ```
 
 Navigate to project folder:
