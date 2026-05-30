@@ -4,23 +4,19 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
-# =========================
+
 # PAGE CONFIG
-# =========================
+
 st.set_page_config(
     page_title="CYBERPUNK AI",
     page_icon="⚡️",
     layout="wide"
 )
 
-# =========================
 # LOAD DATA
-# =========================
 df = pd.read_csv("Vote Ai.csv")
 
-# =========================
 # CUSTOM CSS
-# =========================
 st.markdown("""
 <style>
 
@@ -149,9 +145,7 @@ header {
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
 # HEADER
-# =========================
 st.markdown("""
 <div class="cyber-title">
 ⚡ CYBERPUNK VOTE AI
@@ -174,9 +168,7 @@ margin-bottom:20px;
 </div>
 """, unsafe_allow_html=True)
 
-# =========================
 # CYBER SIDEBAR
-# =========================
 
 st.sidebar.markdown("""
 <h1 style='color:#00F5FF;
@@ -249,9 +241,7 @@ st.sidebar.metric("⚡ Live Threats", "12")
 st.sidebar.metric("🧠 AI Accuracy", "98.7%")
 st.sidebar.metric("🚨 Alerts", "24")
 
-# =========================
 # AI CHATBOT ASSISTANT
-# =========================
 
 st.sidebar.markdown("---")
 
@@ -274,9 +264,7 @@ if question:
 
     q = question.lower()
 
-    # =========================
     # HIGHEST FRAUD PARTY
-    # =========================
     if (
         "fraud" in q or
         "risk" in q
@@ -298,9 +286,7 @@ if question:
             f"⚠️ {risky_party} has highest fraud risk ({risk_score:.1f})"
         )
 
-    # =========================
     # TOTAL VOTES
-    # =========================
     elif (
         "total" in q and "votes" in q
     ):
@@ -311,9 +297,7 @@ if question:
             f"🗳️ Total Votes: {total_votes:,}"
         )
 
-    # =========================
     # HIGHEST TURNOUT
-    # =========================
     elif (
         "turnout" in q or
         "highest turnout" in q
@@ -335,9 +319,7 @@ if question:
             f"📈 {top_state} has highest turnout ({turnout:.1f}%)"
         )
 
-    # =========================
     # MOST VOTES PARTY
-    # =========================
     elif (
         "most votes" in q or
         "winner" in q or
@@ -360,9 +342,7 @@ if question:
             f"🏛️ {top_party} has most votes ({votes:,})"
         )
 
-    # =========================
     # HIGH RISK CANDIDATE
-    # =========================
     elif (
         "candidate" in q and
         "risk" in q
@@ -380,9 +360,7 @@ if question:
             f"🚨 Highest risk candidate: {risky_candidate}"
         )
 
-    # =========================
     # DEFAULT RESPONSE
-    # =========================
     else:
 
         st.sidebar.info(
@@ -397,9 +375,7 @@ if question:
             '''
         )
 
-# =========================
 # FILTER DATA
-# =========================
 
 filtered_df = df.copy()
 
@@ -434,9 +410,7 @@ if filtered_df.empty:
     st.warning("⚠️ No data found for selected filters")
     st.stop()
 
-# =========================
 # KPI CARDS
-# =========================
 total_votes = filtered_df["Total_Votes"].sum()
 fraud_cases = filtered_df["Fraud_Label"].sum()
 avg_risk = filtered_df["Fraud_Risk_Score"].mean()
@@ -461,9 +435,7 @@ for col, card in zip([c1,c2,c3,c4], cards):
         </div>
         """, unsafe_allow_html=True)
 
-# =========================
 # PARTY ANALYSIS
-# =========================
 st.markdown("""
 <div class="section-title">
 🏛️ PARTY DOMINANCE ANALYSIS
@@ -494,9 +466,7 @@ fig1.update_traces(marker_line_width=2)
 
 st.plotly_chart(fig1, use_container_width=True)
 
-# =========================
 # FRAUD ANALYSIS
-# =========================
 st.markdown("""
 <div class="section-title">
 🤖 AI FRAUD DETECTION MATRIX
@@ -521,9 +491,7 @@ fig2.update_layout(
 
 st.plotly_chart(fig2, use_container_width=True)
 
-# =========================
 # RISK DISTRIBUTION
-# =========================
 st.markdown("""
 <div class="section-title">
 ⚠️ RISK DISTRIBUTION
@@ -550,9 +518,7 @@ fig3.update_layout(
 )
 
 st.plotly_chart(fig3, use_container_width=True)
-# =========================
 # HISTOGRAM
-# =========================
 
 st.markdown("""
 <div class="section-title">
@@ -575,9 +541,7 @@ fig_hist.update_layout(
 )
 
 st.plotly_chart(fig_hist, use_container_width=True)
-# =========================
 # BOXPLOT
-# =========================
 
 st.markdown("""
 <div class="section-title">
@@ -600,9 +564,7 @@ fig_box.update_layout(
 )
 
 st.plotly_chart(fig_box, use_container_width=True)
-# =========================
 # PREMIUM CYBER HEATMAP
-# =========================
 
 st.markdown("""
 <div class="section-title">
@@ -633,9 +595,7 @@ plt.xticks(color='white', rotation=45)
 plt.yticks(color='white', rotation=0)
 
 st.pyplot(fig)
-# =========================
 # HIGH RISK TABLE
-# =========================
 st.markdown("""
 <div class="section-title">
 🚨 HIGH RISK CANDIDATES
@@ -652,9 +612,7 @@ st.dataframe(
     use_container_width=True,
     height=400
 )
-# =========================
 # DOWNLOAD DATA BUTTON
-# =========================
 
 csv = filtered_df.to_csv(index=False)
 
@@ -679,9 +637,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
 # FOOTER
-# =========================
 st.markdown("""
 <br><br>
 
