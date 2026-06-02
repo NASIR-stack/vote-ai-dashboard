@@ -308,7 +308,6 @@ turnout_range = st.slider(
         int(df["Voter_Turnout"].max())
     )
 )
-```
 
 with st.sidebar.expander("📊 SYSTEM STATUS", expanded=True):
 
