@@ -261,8 +261,6 @@ AI Election Intelligence
 """, unsafe_allow_html=True)
 
 
-Yani code aisa rehna chahiye:
-
 with st.sidebar.expander("🎛 FILTERS", expanded=True):
 
     search_candidate = st.text_input(
