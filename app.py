@@ -310,18 +310,14 @@ turnout_range = st.slider(
 )
 
 with st.sidebar.expander("📊 SYSTEM STATUS", expanded=True):
-
-
-st.metric(
+  st.metric(
     "🗳 Total Votes",
     f"{df['Total_Votes'].sum():,}"
 )
-
 st.metric(
     "🚨 Fraud Cases",
     int(df["Fraud_Label"].sum())
 )
-
 st.metric(
     "🤖 Avg Risk",
     f"{df['Fraud_Risk_Score'].mean():.1f}"
