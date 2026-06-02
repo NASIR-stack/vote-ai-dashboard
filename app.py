@@ -262,7 +262,6 @@ AI Election Intelligence
 
 with st.sidebar.expander("🎛 FILTERS", expanded=True):
 
-```
 search_candidate = st.text_input(
     "🔍 Search Candidate"
 )
