@@ -216,12 +216,9 @@ risk_score = st.sidebar.slider(
     (0,100)
 )
 st.sidebar.markdown("---")
-
-if st.sidebar.button(
-    "🔄 RESET ALL FILTERS",
-    use_container_width=True
-):
-    st.rerun()
+st.sidebar.info(
+    "💡 To clear all filters, refresh the page."
+)
 st.sidebar.markdown("---")
 
 # AI STATUS
