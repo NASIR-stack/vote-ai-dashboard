@@ -327,10 +327,10 @@ st.metric(
 st.sidebar.markdown("---")
 
 if st.sidebar.button(
-"🔄 RESET ALL FILTERS",
-use_container_width=True
+    "🔄 RESET ALL FILTERS",
+    use_container_width=True
 ):
-st.rerun()
+    st.rerun()
 
 st.sidebar.markdown("---")
 
