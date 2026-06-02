@@ -8,15 +8,17 @@ import seaborn as sns
 # PAGE CONFIG
 
 st.set_page_config(
-    page_title="CYBERPUNK AI",
-    page_icon="⚡️",
+    page_title="CYBERPUNK VOTE AI",
+    page_icon="⚡",
     layout="wide"
 )
 
 # LOAD DATA
+
 df = pd.read_csv("Vote Ai.csv")
 
 # CUSTOM CSS
+
 st.markdown("""
 <style>
 
@@ -146,6 +148,7 @@ header {
 """, unsafe_allow_html=True)
 
 # HEADER
+
 st.markdown("""
 <div class="cyber-title">
 ⚡ CYBERPUNK VOTE AI
@@ -169,6 +172,7 @@ margin-bottom:20px;
 """, unsafe_allow_html=True)
 
 # CYBER SIDEBAR
+
 
 st.sidebar.markdown("""
 <h1 style='color:#00F5FF;
@@ -236,121 +240,156 @@ Election monitoring running successfully.
 
 st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
-# CYBER SIDEBAR 2.0
-
-st.sidebar.markdown("""
-
-<div style="
-text-align:center;
-padding:15px;
-border:1px solid #00F5FF;
-border-radius:15px;
-box-shadow:0 0 20px #00F5FF;
-margin-bottom:15px;
-">
-
-<h2 style="color:#00F5FF;margin:0;">
-⚡ CYBER CONTROL HUB
-</h2>
-
-<p style="color:white;margin:0;">
-AI Election Intelligence
-</p>
-
-</div>
-""", unsafe_allow_html=True)
+# CYBER STATS
+st.sidebar.metric("⚡ Live Threats", "12")
+st.sidebar.metric("🧠 AI Accuracy", "98.7%")
+st.sidebar.metric("🚨 Alerts", "24")
 
 
-with st.sidebar.expander("🎛 FILTERS", expanded=True):
-
-    search_candidate = st.text_input(
-        "🔍 Search Candidate"
-    )
-
-    states = st.multiselect(
-        "🌍 Select State",
-        sorted(df["State"].unique())
-    )
-
-parties = st.multiselect(
-    "🏛 Select Party",
-    sorted(df["Party"].unique())
-)
-
-risks = st.multiselect(
-    "⚠ Risk Category",
-    sorted(df["Risk_Category"].unique())
-)
-
-risk_score = st.slider(
-    "🤖 AI Risk Score",
-    0,
-    100,
-    (0,100)
-)
-
-vote_range = st.slider(
-    "🗳 Vote Range",
-    int(df["Total_Votes"].min()),
-    int(df["Total_Votes"].max()),
-    (
-        int(df["Total_Votes"].min()),
-        int(df["Total_Votes"].max())
-    )
-)
-
-turnout_range = st.slider(
-    "📈 Voter Turnout",
-    int(df["Voter_Turnout"].min()),
-    int(df["Voter_Turnout"].max()),
-    (
-        int(df["Voter_Turnout"].min()),
-        int(df["Voter_Turnout"].max())
-    )
-)
-
-with st.sidebar.expander("📊 SYSTEM STATUS", expanded=True):
-  st.metric(
-    "🗳 Total Votes",
-    f"{df['Total_Votes'].sum():,}"
-)
-st.metric(
-    "🚨 Fraud Cases",
-    int(df["Fraud_Label"].sum())
-)
-st.metric(
-    "🤖 Avg Risk",
-    f"{df['Fraud_Risk_Score'].mean():.1f}"
-)
-
-
-st.sidebar.markdown("---")
-
-if st.sidebar.button(
-    "🔄 RESET ALL FILTERS",
-    use_container_width=True
-):
-    st.rerun()
+# AI CHATBOT ASSISTANT
 
 st.sidebar.markdown("---")
 
 st.sidebar.markdown("""
-
 <h2 style='
 color:#00F5FF;
 text-align:center;
 font-weight:bold;
+text-shadow:0px 0px 10px #00F5FF;
 '>
 🤖 VOTE AI ASSISTANT
 </h2>
 """, unsafe_allow_html=True)
 
 question = st.sidebar.text_input(
-"💬 Ask Vote AI"
+    "💬 Ask Vote AI"
 )
 
+if question:
+
+    q = question.lower()
+
+    
+    # HIGHEST FRAUD PARTY
+    
+    if (
+        "fraud" in q or
+        "risk" in q
+    ) and "party" in q:
+
+        risky_party = (
+            df.groupby("Party")["Fraud_Risk_Score"]
+            .mean()
+            .idxmax()
+        )
+
+        risk_score = (
+            df.groupby("Party")["Fraud_Risk_Score"]
+            .mean()
+            .max()
+        )
+
+        st.sidebar.success(
+            f"⚠️ {risky_party} has highest fraud risk ({risk_score:.1f})"
+        )
+
+    # TOTAL VOTES
+    
+    elif (
+        "total" in q and "votes" in q
+    ):
+
+        total_votes = df["Total_Votes"].sum()
+
+        st.sidebar.success(
+            f"🗳️ Total Votes: {total_votes:,}"
+        )
+
+    # HIGHEST TURNOUT
+    
+    elif (
+        "turnout" in q or
+        "highest turnout" in q
+    ):
+
+        top_state = (
+            df.groupby("State")["Voter_Turnout"]
+            .mean()
+            .idxmax()
+        )
+
+        turnout = (
+            df.groupby("State")["Voter_Turnout"]
+            .mean()
+            .max()
+        )
+
+        st.sidebar.success(
+            f"📈 {top_state} has highest turnout ({turnout:.1f}%)"
+        )
+
+    # MOST VOTES PARTY
+   
+    elif (
+        "most votes" in q or
+        "winner" in q or
+        "top party" in q
+    ):
+
+        top_party = (
+            df.groupby("Party")["Total_Votes"]
+            .sum()
+            .idxmax()
+        )
+
+        votes = (
+            df.groupby("Party")["Total_Votes"]
+            .sum()
+            .max()
+        )
+
+        st.sidebar.success(
+            f"🏛️ {top_party} has most votes ({votes:,})"
+        )
+
+    # HIGH RISK CANDIDATE
+    
+    elif (
+        "candidate" in q and
+        "risk" in q
+    ):
+
+        risky_candidate = (
+            df.sort_values(
+                by="Fraud_Risk_Score",
+                ascending=False
+            )
+            .iloc[0]["Candidate_Name"]
+        )
+
+        st.sidebar.error(
+            f"🚨 Highest risk candidate: {risky_candidate}"
+        )
+
+   
+    # DEFAULT RESPONSE
+  
+    else:
+
+        st.sidebar.info(
+            '''
+🤖 Try asking:
+
+• Which party has highest fraud risk?
+• Show total votes
+• Highest turnout state
+• Which party has most votes?
+• High risk candidate
+            '''
+        )
 
 # FILTER DATA
+
 
 filtered_df = df.copy()
 
@@ -385,7 +424,9 @@ if filtered_df.empty:
     st.warning("⚠️ No data found for selected filters")
     st.stop()
 
+
 # KPI CARDS
+
 total_votes = filtered_df["Total_Votes"].sum()
 fraud_cases = filtered_df["Fraud_Label"].sum()
 avg_risk = filtered_df["Fraud_Risk_Score"].mean()
@@ -410,7 +451,9 @@ for col, card in zip([c1,c2,c3,c4], cards):
         </div>
         """, unsafe_allow_html=True)
 
+
 # PARTY ANALYSIS
+
 st.markdown("""
 <div class="section-title">
 🏛️ PARTY DOMINANCE ANALYSIS
@@ -539,6 +582,7 @@ fig_box.update_layout(
 )
 
 st.plotly_chart(fig_box, use_container_width=True)
+
 # PREMIUM CYBER HEATMAP
 
 st.markdown("""
@@ -587,31 +631,12 @@ st.dataframe(
     use_container_width=True,
     height=400
 )
-# DOWNLOAD DATA BUTTON
-
-csv = filtered_df.to_csv(index=False)
-
 st.download_button(
-    label="📥 Download The Data",
-    data=csv,
+    "⬇ Download Data",
+    filtered_df.to_csv(index=False),
+    "filtered_data.csv",
+    "text/csv"
 )
-st.markdown("""
-<style>
-
-.section-title {
-    color: white;
-}
-
-/* DOWNLOAD BUTTON */
-.stDownloadButton > button {
-    background-color: white !important;
-    color: black !important;
-    font-weight: bold !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
 # FOOTER
 st.markdown("""
 <br><br>
