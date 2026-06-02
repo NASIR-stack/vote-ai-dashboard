@@ -260,16 +260,19 @@ AI Election Intelligence
 </div>
 """, unsafe_allow_html=True)
 
+
+Yani code aisa rehna chahiye:
+
 with st.sidebar.expander("🎛 FILTERS", expanded=True):
 
-search_candidate = st.text_input(
-    "🔍 Search Candidate"
-)
+    search_candidate = st.text_input(
+        "🔍 Search Candidate"
+    )
 
-states = st.multiselect(
-    "🌍 Select State",
-    sorted(df["State"].unique())
-)
+    states = st.multiselect(
+        "🌍 Select State",
+        sorted(df["State"].unique())
+    )
 
 parties = st.multiselect(
     "🏛 Select Party",
